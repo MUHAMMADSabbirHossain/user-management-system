@@ -1,10 +1,27 @@
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
   // const [count, setCount] = useState(0)
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/users")
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setUsers(data);
+      })
+  }, [])
+
+  const handleform = event => {
+    event.preventDefault();
+
+  }
 
   return (
     <>
@@ -28,6 +45,23 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p> */}
+
+      {/* form section for adding information */}
+      <form onSubmit={handleform}>
+        <input type="text" name="name" id="" placeholder='name' />
+        <input type="text" name="banglish" id="" placeholder='banglish' />
+        <input type="submit" value="Add" />
+      </form>
+
+      <h2>{`Users: ${users.length}`}</h2>
+
+      <section>
+        {
+          users.map(user => <div key={user.id}>
+            <p>{`user id: ${user.id} : name: ${user.name} : banglish: ${user.banglish}`}</p>
+          </div>)
+        }
+      </section>
     </>
   )
 }
