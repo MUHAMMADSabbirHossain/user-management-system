@@ -5,6 +5,7 @@ const port = process.env.PORT || 5000;
 
 // middleware
 app.use(cors());
+app.use(express.json());
 
 const users = [
     { id: 1, name: "one", banglish: "uwan" },
@@ -18,6 +19,15 @@ app.get("/", (req, res) => {
 
 app.get("/users", (req, res) => {
     res.send(users);
+})
+
+app.post("/users", (req, res) => {
+    // console.log("new user: ", req.body);
+    const newObj = req.body;
+    newObj.id = users.length + 1;
+    console.log(newObj);
+    users.push(newObj);
+    res.send(newObj);
 })
 
 app.listen(port, () => {

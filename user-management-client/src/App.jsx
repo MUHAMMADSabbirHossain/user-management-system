@@ -21,6 +21,27 @@ function App() {
   const handleform = event => {
     event.preventDefault();
 
+    const form = new FormData(event.currentTarget);
+    const name = form.get("name");
+    const banglish = form.get("banglish");
+    const user = { name, banglish };
+    // console.log(name, banglish, user);
+
+    // post form to the server
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(data => {
+        // console.log(data);
+        const newUsers = [...users, data];
+        setUsers(newUsers);
+        event.target.reset();
+      })
   }
 
   return (
