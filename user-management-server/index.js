@@ -9,7 +9,7 @@ const users = [
 ]
 
 app.get("/", (req, res) => {
-    res.send("Hello, User Management Server is running.");
+    res.send("Hello, User Management System BackEnd is running.");
 })
 
 app.get("/users", (req, res) => {
@@ -17,5 +17,5 @@ app.get("/users", (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`User Management Server is running on PORT: ${port}`);
+    console.log(`User Management System BackEnd is running on PORT: ${port}`);
 });
